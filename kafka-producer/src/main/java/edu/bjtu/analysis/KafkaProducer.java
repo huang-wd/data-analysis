@@ -4,9 +4,11 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 
 import java.io.File;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author huangweidong
@@ -16,12 +18,12 @@ public class KafkaProducer {
     public final static char split = '\001';
 
     public static final String[][] fileDefinitions = {
-            {"src/main/resources/数据仓库课程实验三数据/articleInfo/articleInfo", "t_article_info"},
-            {"src/main/resources/数据仓库课程实验三数据/userBasic/userBasic", "t_user_basic"},
-            {"src/main/resources/数据仓库课程实验三数据/userBehavior/userBehavior", "t_user_behavior"},
-            {"src/main/resources/数据仓库课程实验三数据/userEdu/userEdu", "t_user_edu"},
-            {"src/main/resources/数据仓库课程实验三数据/userInterest/userInterest", "t_user_interest"},
-            {"src/main/resources/数据仓库课程实验三数据/userSkill/userSkill", "t_user_skill"}
+            {"D:\\数据仓库课程实验三数据/articleInfo/articleInfo", "t_article_info"},
+            {"D:\\数据仓库课程实验三数据/userBasic/userBasic", "t_user_basic"},
+            {"D:\\数据仓库课程实验三数据/userBehavior/userBehavior", "t_user_behavior"},
+            {"D:\\数据仓库课程实验三数据/userEdu/userEdu", "t_user_edu"},
+            {"D:\\数据仓库课程实验三数据/userInterest/userInterest", "t_user_interest"},
+            {"D:\\数据仓库课程实验三数据/userSkill/userSkill", "t_user_skill"}
     };
 
     public static Producer<String, String> producer;
@@ -43,7 +45,7 @@ public class KafkaProducer {
                 //Constructor c = clazz.getConstructor(String.class);
                 try {
                     // sendMsg(dataDefinition[2], JSON.toJSONString(c.newInstance(line)));
-                    sendMsg(dataDefinition[2], line);
+                    sendMsg(dataDefinition[1], line);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -53,7 +55,7 @@ public class KafkaProducer {
 
     private static void initKafka() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "master:9092");
+        props.put("bootstrap.servers", "172.31.42.22:9092");
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);
@@ -69,6 +71,13 @@ public class KafkaProducer {
     }
 
     private static void sendMsg(String topic, String msg) {
-        producer.send(new ProducerRecord<>(topic, msg));
+        try {
+            RecordMetadata metadata = producer.send(new ProducerRecord<>(topic, msg)).get();
+            System.out.println(metadata.toString());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }
