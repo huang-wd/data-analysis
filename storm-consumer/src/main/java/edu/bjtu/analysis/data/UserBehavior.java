@@ -1,7 +1,5 @@
 package edu.bjtu.analysis.data;
 
-import static edu.bjtu.analysis.StormConsumer.split;
-
 /**
  * @author huangweidong
  * @date 2018/06/18
@@ -26,7 +24,7 @@ public class UserBehavior {
     private String behaviorTime;
 
     public UserBehavior(String line) {
-        String[] values = line.split(String.valueOf(split));
+        String[] values = line.split(String.valueOf(""));
         if (values.length != 4) {
             throw new IllegalArgumentException("参数不合法：" + line);
         }

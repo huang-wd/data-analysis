@@ -1,6 +1,5 @@
 package edu.bjtu.analysis.data;
 
-import static edu.bjtu.analysis.StormConsumer.split;
 
 /**
  * @author huangweidong
@@ -33,7 +32,7 @@ public class UserEdu {
     private String major;
 
     public UserEdu(String line) {
-        String[] values = line.split(String.valueOf(split));
+        String[] values = line.split(String.valueOf(""));
         if (values.length != 4) {
             throw new IllegalArgumentException("参数不合法：" + line);
         }
