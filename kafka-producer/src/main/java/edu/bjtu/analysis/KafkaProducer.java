@@ -15,15 +15,16 @@ import java.util.concurrent.ExecutionException;
  * @date 2018/06/18
  */
 public class KafkaProducer {
-    public final static char split = '\001';
+
+    private final static String topic = "t_user_behavior_all";
 
     public static final String[][] fileDefinitions = {
-            {"D:\\数据仓库课程实验三数据/articleInfo/articleInfo", "t_article_info"},
-            {"D:\\数据仓库课程实验三数据/userBasic/userBasic", "t_user_basic"},
-            {"D:\\数据仓库课程实验三数据/userBehavior/userBehavior", "t_user_behavior"},
-            {"D:\\数据仓库课程实验三数据/userEdu/userEdu", "t_user_edu"},
-            {"D:\\数据仓库课程实验三数据/userInterest/userInterest", "t_user_interest"},
-            {"D:\\数据仓库课程实验三数据/userSkill/userSkill", "t_user_skill"}
+            {"D:\\数据仓库课程实验三数据/articleInfo/articleInfo", "article_info"},
+            {"D:\\数据仓库课程实验三数据/userBasic/userBasic", "user_basic"},
+            {"D:\\数据仓库课程实验三数据/userBehavior/userBehavior", "user_behavior"},
+            {"D:\\数据仓库课程实验三数据/userEdu/userEdu", "user_edu"},
+            {"D:\\数据仓库课程实验三数据/userInterest/userInterest", "user_interest"},
+            {"D:\\数据仓库课程实验三数据/userSkill/userSkill", "user_skill"}
     };
 
     public static Producer<String, String> producer;
@@ -41,11 +42,8 @@ public class KafkaProducer {
         try (LineIterator it = FileUtils.lineIterator(new File(dataDefinition[0]), "UTF-8")) {
             while (it.hasNext()) {
                 String line = it.nextLine();
-                // Class clazz = Class.forName(dataDefinition[1]);
-                //Constructor c = clazz.getConstructor(String.class);
                 try {
-                    // sendMsg(dataDefinition[2], JSON.toJSONString(c.newInstance(line)));
-                    sendMsg(dataDefinition[1], line);
+                    sendMsg(topic, dataDefinition[1], line);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -70,9 +68,9 @@ public class KafkaProducer {
         producer.close();
     }
 
-    private static void sendMsg(String topic, String msg) {
+    private static void sendMsg(String topic, String key, String msg) {
         try {
-            RecordMetadata metadata = producer.send(new ProducerRecord<>(topic, msg)).get();
+            RecordMetadata metadata = producer.send(new ProducerRecord<>(topic, key, msg)).get();
             System.out.println(metadata.toString());
         } catch (InterruptedException e) {
             e.printStackTrace();

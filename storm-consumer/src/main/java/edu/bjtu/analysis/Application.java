@@ -2,32 +2,29 @@ package edu.bjtu.analysis;
 
 import edu.bjtu.analysis.constant.Profiles;
 import edu.bjtu.analysis.spout.KafkaMessageScheme;
-import edu.bjtu.analysis.topology.PlayStuckTopology;
+import edu.bjtu.analysis.topology.UserBehaviorTopology;
 import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.generated.StormTopology;
-import org.apache.storm.kafka.BrokerHosts;
-import org.apache.storm.kafka.KafkaSpout;
-import org.apache.storm.kafka.SpoutConfig;
-import org.apache.storm.kafka.ZkHosts;
+import org.apache.storm.kafka.*;
 import org.apache.storm.spout.SchemeAsMultiScheme;
 
 /**
- * Created by baohehe
+ * @author huangweidong
  */
 public class Application {
     public static void main(String[] args) throws Exception {
         if (args.length != 1) {
             System.out.println("Invalid parameter.");
             System.out.println("Parameter should be topology's name");
-            System.out.println(PlayStuckTopology.TOPOLOGY_NAME);
+            System.out.println(UserBehaviorTopology.TOPOLOGY_NAME);
             System.exit(-1);
         }
 
         StormTopology stormTopology = null;
         switch (args[0]) {
-            case PlayStuckTopology.TOPOLOGY_NAME:
-                stormTopology = PlayStuckTopology.create();
+            case UserBehaviorTopology.TOPOLOGY_NAME:
+                stormTopology = UserBehaviorTopology.create();
                 break;
             default:
                 break;
@@ -42,7 +39,7 @@ public class Application {
         } else {
             System.out.println("topology name error!!!");
             System.out.println("Parameter should be topology's name");
-            System.out.println(PlayStuckTopology.TOPOLOGY_NAME);
+            System.out.println(UserBehaviorTopology.TOPOLOGY_NAME);
         }
     }
 
@@ -57,7 +54,8 @@ public class Application {
         //从头开始消费
         //kafkaConfig.forceFromStart = true;
 
-        kafkaConfig.scheme = new SchemeAsMultiScheme(new KafkaMessageScheme());
+        kafkaConfig.scheme = new KeyValueSchemeAsMultiScheme(new StringKeyValueScheme());
+
         return new KafkaSpout(kafkaConfig);
     }
 }

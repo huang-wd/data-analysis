@@ -1,6 +1,8 @@
 package edu.bjtu.analysis.data;
 
 
+import edu.bjtu.analysis.topology.UserBehaviorTopology;
+
 /**
  * @author baohehe
  * @date 2018/06/18
@@ -16,7 +18,7 @@ public class UserSkill {
     private String skillName;
 
     public UserSkill(String line) {
-        String[] values = line.split(String.valueOf(""));
+        String[] values = line.split(String.valueOf(UserBehaviorTopology.split));
         if (values.length != 2) {
             throw new IllegalArgumentException("参数不合法：" + line);
         }

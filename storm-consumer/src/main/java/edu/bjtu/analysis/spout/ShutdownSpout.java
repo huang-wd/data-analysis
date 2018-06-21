@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
+ * @author huangweidong
  */
 public class ShutdownSpout extends BaseRichSpout {
 
@@ -23,15 +24,18 @@ public class ShutdownSpout extends BaseRichSpout {
 
     private SpoutOutputCollector _collector;
 
+    @Override
     public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
         logger.info("shutdown spout open function called");
         _collector = collector;
     }
 
+    @Override
     public void activate() {
         logger.info("shutdown spout activate function called");
     }
 
+    @Override
     public void deactivate() {
         logger.info("shutdown deactivate to spout and bolt");
         try {
@@ -41,6 +45,7 @@ public class ShutdownSpout extends BaseRichSpout {
         }
     }
 
+    @Override
     public void nextTuple() {
         try {
             Thread.sleep(10000);
@@ -49,14 +54,17 @@ public class ShutdownSpout extends BaseRichSpout {
         }
     }
 
+    @Override
     public void declareOutputFields(OutputFieldsDeclarer message) {
         message.declareStream(SHUTDOWN_STREAM_ID, new Fields("Showdown"));
     }
 
+    @Override
     public void ack(Object msgId) {
         logger.info("shutDown spout ack, msId " + msgId);
     }
 
+    @Override
     public void fail(Object msgId) {
         logger.error("shutDown spout fail, msId " + msgId);
     }

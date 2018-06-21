@@ -1,6 +1,8 @@
 package edu.bjtu.analysis.data;
 
 
+import edu.bjtu.analysis.topology.UserBehaviorTopology;
+
 /**
  * @author baohehe
  * @date 2018/06/18
@@ -37,7 +39,7 @@ public class ArticleInfo {
     private String domain;
 
     public ArticleInfo(String line) {
-        String[] values = line.split(String.valueOf(""));
+        String[] values = line.split(String.valueOf(UserBehaviorTopology.split));
         if (values.length != 5) {
             throw new IllegalArgumentException("参数不合法：" + line);
         }

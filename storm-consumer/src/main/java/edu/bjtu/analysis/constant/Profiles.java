@@ -66,12 +66,6 @@ public class Profiles {
         try {
             Configuration config = builder.getConfiguration();
 
-            //mysql
-            MYSQL_USER = config.getString("mysql.datasource.username");
-            MYSQL_PASSWORD = config.getString("mysql.datasource.password");
-            MYSQL_URL = config.getString("mysql.datasource.url");
-            MYSQL_DRIVER = config.getString("mysql.datasource.driver-class-name");
-
             //kafka
             TOPIC = config.getString("kafka.storm.topic");
             KAFKA_ZK_HOSTS = config.getString("kafka.zookeeper.hosts");
