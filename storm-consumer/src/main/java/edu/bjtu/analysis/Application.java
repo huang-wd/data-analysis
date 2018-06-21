@@ -13,7 +13,7 @@ import org.apache.storm.kafka.ZkHosts;
 import org.apache.storm.spout.SchemeAsMultiScheme;
 
 /**
- * Created by huangweidong on 2017/8/26.
+ * Created by baohehe
  */
 public class Application {
     public static void main(String[] args) throws Exception {

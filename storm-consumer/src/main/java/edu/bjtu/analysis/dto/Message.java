@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.io.Serializable;
 
 /**
- * Created by huangweidong on 2017/8/18.
+ * Created by baohehe
  * 用户上报日志
  */
 

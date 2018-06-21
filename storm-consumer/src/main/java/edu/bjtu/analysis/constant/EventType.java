@@ -1,7 +1,7 @@
 package edu.bjtu.analysis.constant;
 
 /**
- * Created by huangweidong on 2017/8/18.
+ * Created by baohehe
  * 事件类型定义
  */
 public enum EventType {

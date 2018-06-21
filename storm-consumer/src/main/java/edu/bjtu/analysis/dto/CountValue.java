@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.io.Serializable;
 
 /**
- * Created by huangweidong on 2017/8/21.
+ * Created by baohehe
  */
 public class CountValue implements Serializable {
     private int count;

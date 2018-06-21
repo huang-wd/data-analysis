@@ -1,7 +1,7 @@
 package edu.bjtu.analysis.constant;
 
 /**
- * @author huangweidong
+ * @author baohehe
  * @date 2018/06/18
  */
 public class Constants {

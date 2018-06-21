@@ -1,7 +1,7 @@
 package edu.bjtu.analysis.data;
 
 /**
- * @author huangweidong
+ * @author baohehe
  * @date 2018/06/18
  * <p>
  * 用户id	行为类型	文章id	行为时间

@@ -2,7 +2,7 @@ package edu.bjtu.analysis.data;
 
 
 /**
- * @author huangweidong
+ * @author baohehe
  * @date 2018/06/18
  * <p>
  * 文章id	类型	置顶	状态	博文版块
